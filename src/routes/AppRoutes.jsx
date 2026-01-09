@@ -10,7 +10,7 @@ import ProductDetail from '../pages/products/ProductDetail';
 import Cart from '../pages/cart/Cart';
 import Checkout from '../pages/cart/Checkout';
 import Orders from '../pages/orders/Orders';
-import OrderDetail from '../pages/orders/OrderDetail';
+import OrderDetails from '../pages/orders/OrderDetails';
 import Profile from '../pages/profile/Profile';
 import NotFound from '../pages/NotFound';
 
@@ -31,7 +31,7 @@ const AppRoutes = () => {
         <Route path="cart" element={<Cart />} />
         <Route path="checkout" element={isAuthenticated ? <Checkout /> : <Navigate to="/login" />} />
         <Route path="orders" element={isAuthenticated ? <Orders /> : <Navigate to="/login" />} />
-        <Route path="orders/:id" element={isAuthenticated ? <OrderDetail /> : <Navigate to="/login" />} />
+        <Route path="orders/:id" element={isAuthenticated ? <OrderDetails /> : <Navigate to="/login" />} />
         <Route path="profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
         <Route path="*" element={<NotFound />} />
       </Route>

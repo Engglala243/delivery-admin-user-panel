@@ -77,7 +77,7 @@ const CartSidebar = () => {
                     )}
                     <div className="flex-1">
                       <h3 className="font-medium text-sm">{item.product.name}</h3>
-                      <p className="text-primary-600 font-semibold">${item.price}</p>
+                      <p className="text-black font-semibold">${item.price}</p>
                       
                       {/* Quantity Controls */}
                       <div className="flex items-center space-x-2 mt-2">
@@ -99,7 +99,7 @@ const CartSidebar = () => {
                         </button>
                         <button
                           onClick={() => handleRemoveItem(item.product._id)}
-                          className="p-1 hover:bg-red-100 text-red-600 rounded ml-2"
+                          className="p-1 hover:bg-gray-100 text-black rounded ml-2"
                         >
                           <TrashIcon className="h-4 w-4" />
                         </button>
@@ -116,7 +116,7 @@ const CartSidebar = () => {
             <div className="border-t p-4 space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold">Total:</span>
-                <span className="text-xl font-bold text-primary-600">
+                <span className="text-xl font-bold text-black">
                   ${totalAmount.toFixed(2)}
                 </span>
               </div>

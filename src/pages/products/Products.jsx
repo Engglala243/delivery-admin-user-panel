@@ -53,7 +53,7 @@ const Products = () => {
               <h3 className="text-lg font-semibold">Filters</h3>
               <button
                 onClick={clearFilters}
-                className="text-sm text-primary-600 hover:text-primary-700"
+                className="text-sm text-black hover:text-gray-700"
               >
                 Clear All
               </button>

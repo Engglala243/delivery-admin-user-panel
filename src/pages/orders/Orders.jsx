@@ -14,11 +14,24 @@ const Orders = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('Fetching orders for authenticated user');
+      console.log('Orders component mounted, fetching orders for authenticated user');
       dispatch(fetchUserOrders());
     } else {
       console.log('User not authenticated, skipping order fetch');
     }
+  }, [dispatch, isAuthenticated]);
+
+  // Also fetch orders when component becomes visible
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && isAuthenticated) {
+        console.log('Page became visible, refreshing orders');
+        dispatch(fetchUserOrders());
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
   }, [dispatch, isAuthenticated]);
 
   const formatPrice = (price) => {
@@ -41,19 +54,19 @@ const Orders = () => {
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-gray-200 text-black';
       case 'confirmed':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-gray-300 text-black';
       case 'preparing':
-        return 'bg-orange-100 text-orange-800';
+        return 'bg-gray-400 text-black';
       case 'out_for_delivery':
-        return 'bg-purple-100 text-purple-800';
+        return 'bg-gray-500 text-white';
       case 'delivered':
-        return 'bg-green-100 text-green-800';
+        return 'bg-black text-white';
       case 'cancelled':
-        return 'bg-red-100 text-red-800';
+        return 'bg-gray-600 text-white';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 text-black';
     }
   };
 
@@ -63,7 +76,7 @@ const Orders = () => {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">My Orders</h1>
           <p className="text-gray-600 mb-4">Please login to view your orders</p>
-          <Link to="/login" className="btn-primary">
+          <Link to="/login" className="bg-black hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
             Login
           </Link>
         </div>
@@ -75,21 +88,22 @@ const Orders = () => {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
         </div>
       </div>
     );
   }
 
   if (error) {
+    console.log('Orders component - showing error state');
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">My Orders</h1>
-          <p className="text-red-600 mb-4">{typeof error === 'string' ? error : 'Failed to load orders'}</p>
+          <p className="text-black mb-4">{typeof error === 'string' ? error : 'Failed to load orders'}</p>
           <button
             onClick={() => dispatch(fetchUserOrders())}
-            className="btn-primary"
+            className="bg-black hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             Try Again
           </button>
@@ -98,14 +112,25 @@ const Orders = () => {
     );
   }
 
+  console.log('Orders component - ordersList:', ordersList);
+  console.log('Orders component - ordersList.length:', ordersList.length);
+  console.log('Orders component - isLoading:', isLoading);
+  console.log('Orders component - error:', error);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-2xl font-bold text-gray-900 mb-8">My Orders</h1>
 
       {ordersList.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-600 mb-4">You haven't placed any orders yet</p>
-          <Link to="/products" className="btn-primary">
+          <div className="mb-6">
+            <svg className="mx-auto h-24 w-24 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No orders yet</h3>
+          <p className="text-gray-600 mb-6">You haven't placed any orders yet</p>
+          <Link to="/products" className="bg-black hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
             Start Shopping
           </Link>
         </div>
@@ -191,12 +216,12 @@ const Orders = () => {
                 <div className="border-t pt-4 mt-4 flex justify-between items-center">
                   <Link
                     to={`/orders/${order._id}`}
-                    className="text-primary-600 hover:text-primary-700 font-medium"
+                    className="text-black hover:text-gray-700 font-medium transition-colors"
                   >
                     View Details
                   </Link>
                   {order.status === 'pending' && (
-                    <button className="text-red-600 hover:text-red-700 font-medium">
+                    <button className="text-black hover:text-gray-700 font-medium">
                       Cancel Order
                     </button>
                   )}

@@ -67,7 +67,7 @@ const Register = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <Link to="/" className="flex justify-center">
-            <span className="text-3xl font-bold text-primary-600">DeliveryApp</span>
+            <span className="text-3xl font-bold text-black">DeliveryApp</span>
           </Link>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Create your account
@@ -76,7 +76,7 @@ const Register = () => {
             Or{' '}
             <Link
               to="/login"
-              className="font-medium text-primary-600 hover:text-primary-500"
+              className="font-medium text-black hover:text-gray-700"
             >
               sign in to your existing account
             </Link>
@@ -193,7 +193,7 @@ const Register = () => {
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+            <div className="bg-gray-100 border border-gray-300 text-black px-4 py-3 rounded-lg">
               {error}
             </div>
           )}

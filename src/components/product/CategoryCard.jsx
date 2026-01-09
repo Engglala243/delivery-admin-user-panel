@@ -7,11 +7,11 @@ const CategoryCard = ({ category }) => {
       to={`/products?category=${category._id}`}
       className="group block text-center hover:shadow-lg transition-shadow duration-200"
     >
-      <div className="bg-white rounded-lg p-6 border border-gray-200 group-hover:border-primary-300">
-        <div className="w-16 h-16 mx-auto mb-4 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-200 transition-colors">
+      <div className="bg-white rounded-lg p-6 border border-gray-200 group-hover:border-gray-400">
+        <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center group-hover:bg-gray-200 transition-colors">
           {/* Category icon - you can replace with actual icons */}
           <svg
-            className="w-8 h-8 text-primary-600"
+            className="w-8 h-8 text-black"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -24,7 +24,7 @@ const CategoryCard = ({ category }) => {
             />
           </svg>
         </div>
-        <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
+        <h3 className="font-semibold text-gray-900 group-hover:text-black transition-colors">
           {category.name}
         </h3>
         {category.description && (

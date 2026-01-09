@@ -286,10 +286,10 @@ const Profile = () => {
               <div className="border-t pt-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">Account Actions</h3>
                 <div className="space-y-2">
-                  <Link to="/orders" className="text-primary-600 hover:text-primary-700 block">
+                  <Link to="/orders" className="text-black hover:text-gray-700 block">
                     View My Orders
                   </Link>
-                  <Link to="/" className="text-primary-600 hover:text-primary-700 block">
+                  <Link to="/" className="text-black hover:text-gray-700 block">
                     Continue Shopping
                   </Link>
                 </div>

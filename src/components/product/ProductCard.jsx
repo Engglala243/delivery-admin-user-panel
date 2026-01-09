@@ -62,7 +62,7 @@ const ProductCard = ({ product }) => {
         <button
           onClick={handleAddToCart}
           disabled={product.stock === 0}
-          className="absolute bottom-2 right-2 bg-primary-600 hover:bg-primary-700 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="absolute bottom-2 right-2 bg-black hover:bg-gray-800 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <PlusIcon className="h-5 w-5" />
         </button>
@@ -78,7 +78,7 @@ const ProductCard = ({ product }) => {
         </p>
         
         <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-primary-600">
+          <span className="text-lg font-bold text-black">
             {formatPrice(product.price)}
           </span>
           
@@ -98,7 +98,7 @@ const ProductCard = ({ product }) => {
                   key={i}
                   className={`h-4 w-4 ${
                     i < Math.floor(product.rating)
-                      ? 'text-yellow-400'
+                      ? 'text-black'
                       : 'text-gray-300'
                   }`}
                   fill="currentColor"

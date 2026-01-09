@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createOrder } from '../../redux/slices/orderSlice';
+import { createOrder, fetchUserOrders } from '../../redux/slices/orderSlice';
 import { clearCart } from '../../redux/slices/cartSlice';
 import { getImageUrl, handleImageError } from '../../utils/imageUtils';
 import toast from 'react-hot-toast';
@@ -45,9 +45,9 @@ const Checkout = () => {
 
     const orderData = {
       items: items.map(item => ({
-        product: item.product._id,
-        quantity: item.quantity,
-        price: item.price,
+        product: item.product?._id || item.productId,
+        quantity: item.quantity || 1,
+        price: item.price || 0,
       })),
       totalAmount: totalAmount + 2.99,
       deliveryAddress,
@@ -55,13 +55,18 @@ const Checkout = () => {
     };
 
     try {
-      await dispatch(createOrder(orderData)).unwrap();
+      const createdOrder = await dispatch(createOrder(orderData)).unwrap();
+      console.log('Order created successfully, clearing cart and refreshing orders');
       dispatch(clearCart());
+      // Small delay to ensure order is saved before fetching
+      setTimeout(() => {
+        dispatch(fetchUserOrders());
+      }, 500);
       toast.success('Order placed successfully!');
       navigate('/orders');
     } catch (error) {
       console.error('Order error:', error);
-      toast.error(error || 'Failed to place order');
+      toast.error(error?.message || error || 'Failed to place order');
     }
   };
 
@@ -189,12 +194,12 @@ const Checkout = () => {
           
           <div className="space-y-4 mb-6">
             {items.map((item) => (
-              <div key={item.product._id} className="flex items-center space-x-3">
+              <div key={`${item.product._id}-${item.quantity}`} className="flex items-center space-x-3">
                 {item.product.images && item.product.images.length > 0 ? (
                   <>
                     <img
                       src={getImageUrl(item.product.images[0])}
-                      alt={item.product.name}
+                      alt={item.product.name || 'Product'}
                       className="w-12 h-12 object-cover rounded"
                       onError={handleImageError}
                     />
@@ -208,11 +213,11 @@ const Checkout = () => {
                   </div>
                 )}
                 <div className="flex-1">
-                  <h3 className="font-medium text-sm">{item.product.name}</h3>
-                  <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                  <h3 className="font-medium text-sm">{item.product.name || 'Product'}</h3>
+                  <p className="text-sm text-gray-600">Qty: {item.quantity || 1}</p>
                 </div>
                 <span className="font-semibold">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  ${((item.price || 0) * (item.quantity || 1)).toFixed(2)}
                 </span>
               </div>
             ))}

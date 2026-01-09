@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
+import Footer from './Footer';
 import CartSidebar from '../cart/CartSidebar';
 
 const Layout = () => {
@@ -10,6 +11,7 @@ const Layout = () => {
       <main className="pt-16">
         <Outlet />
       </main>
+      <Footer />
       <CartSidebar />
     </div>
   );

@@ -46,7 +46,7 @@ const ProductDetail = () => {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
         </div>
       </div>
     );
@@ -96,7 +96,7 @@ const ProductDetail = () => {
                   key={index}
                   onClick={() => setSelectedImage(index)}
                   className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 ${
-                    selectedImage === index ? 'border-primary-600' : 'border-gray-200'
+                    selectedImage === index ? 'border-black' : 'border-gray-200'
                   }`}
                 >
                   <img
@@ -121,7 +121,7 @@ const ProductDetail = () => {
             )}
           </div>
 
-          <div className="text-3xl font-bold text-primary-600">
+          <div className="text-3xl font-bold text-black">
             {formatPrice(product.price)}
           </div>
 
@@ -133,7 +133,7 @@ const ProductDetail = () => {
           <div className="flex items-center space-x-4">
             <span className="text-sm font-medium text-gray-900">Stock:</span>
             <span className={`text-sm font-medium ${
-              product.stock > 10 ? 'text-green-600' : product.stock > 0 ? 'text-yellow-600' : 'text-red-600'
+              product.stock > 10 ? 'text-black' : product.stock > 0 ? 'text-gray-600' : 'text-black'
             }`}>
               {product.stock > 0 ? `${product.stock} available` : 'Out of stock'}
             </span>
@@ -162,7 +162,7 @@ const ProductDetail = () => {
 
               <button
                 onClick={handleAddToCart}
-                className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center space-x-2 transition-colors"
+                className="w-full bg-black hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center space-x-2 transition-colors"
               >
                 <ShoppingCartIcon className="h-5 w-5" />
                 <span>Add to Cart</span>
